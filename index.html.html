@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First Dinner With Me?</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #ffb6c1, #ff69b4);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            position: relative;
+        }
+        .heart {
+            position: absolute;
+            color: #ff1493;
+            font-size: 20px;
+            pointer-events: none;
+            animation: fade 1s linear forwards;
+        }
+        @keyframes fade {
+            to { opacity: 0; transform: translateY(-20px); }
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .page {
+            display: none;
+            text-align: center;
+        }
+        .page.active {
+            display: block;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 10px;
+            transition: background 0.3s;
+        }
+        #yesBtn {
+            background: #ff69b4;
+            color: white;
+        }
+        #yesBtn:hover {
+            background: #ff1493;
+        }
+        #noBtn {
+            background: #dc143c;
+            color: white;
+            position: relative;
+        }
+        #noBtn:hover {
+            background: #b22222;
+        }
+        .food-options {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .food-options label {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 10px;
+            transition: background 0.3s;
+        }
+        .food-options label:hover {
+            background: rgba(255, 182, 193, 0.5);
+        }
+        .food-options input[type="radio"] {
+            margin-right: 15px;
+        }
+        .food-options img {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            margin-right: 15px;
+            border: 2px solid transparent;
+            transition: border 0.3s;
+        }
+        .food-options input[type="radio"]:checked + img {
+            border-color: #ff69b4;
+        }
+        .date-form {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            color: #333;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .date-form input {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            width: 80%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            color: #333;
+            max-width: 400px;
+            margin: 20px auto;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Screen 1: First Dinner With Me? -->
+        <div id="page1" class="page active">
+            <h1>First Dinner With Me? 💖</h1>
+            <button id="yesBtn">YES</button>
+            <button id="noBtn">NO</button>
+        </div>
+
+        <!-- Screen 2: YES, I knew you’d say yes -->
+        <div id="page2" class="page">
+            <h1>YES, I knew you’d say yes! 🌹</h1>
+            <button id="nextBtn2">Next</button>
+        </div>
+
+        <!-- Screen 3: WHAT WOULD YOU LIKE TO EAT?? -->
+        <div id="page3" class="page">
+            <h1>WHAT WOULD YOU LIKE TO EAT?? 🍽️</h1>
+            <div class="food-options">
+                <label>
+                    <input type="radio" name="food" value="Steak" required>
+                    <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=100&h=100&fit=crop" alt="Steak">
+                    Steak
+                </label>
+                <label>
+                    <input type="radio" name="food" value="Lalapan">
+                    <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=100&h=100&fit=crop" alt="Lalapan">
+                    Lalapan
+                </label>
+                <label>
+                    <input type="radio" name="food" value="All You Can Eat">
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=100&h=100&fit=crop" alt="All You Can Eat">
+                    All You Can Eat
+                </label>
+                <label>
+                    <input type="radio" name="food" value="Custom">
+                    <span style="width:100px; height:100px; display:inline-block; margin-right:15px; background:#f0f0f0; border-radius:10px; text-align:center; line-height:100px;">Custom</span>
+                    Isi Sendiri: <input type="text" id="customFood" placeholder="Enter your choice" style="margin-left:10px; padding:5px; border-radius:5px;">
+                </label>
+                <button id="nextBtn3">Next</button>
+            </div>
+        </div>
+
+        <!-- Screen 4: Date and Time Template -->
+        <div id="page4" class="page">
+            <h1>Let's Set the Date and Time! 📅</h1>
+            <div class="date-form">
+                <label for="day">Day:</label>
+                <input type="text" id="day" placeholder="e.g., Monday" required>
+                
+                <label for="date">Date:</label>
+                <input type="date" id="date" required>
+                
+                <label for="year">Year:</label>
+                <input type="number" id="year" placeholder="e.g., 2023" required>
+                
+                <label for="time">Time:</label>
+                <input type="time" id="time" required>
+                
+                <button id="nextBtn4">Next</button>
+            </div>
+        </div>
+
+        <!-- Screen 5: Thank You Message -->
+        <div id="page5" class="page">
+            <h1>Thank you for saying yes.</h1>
+            <p>I promise this will be our first beautiful memory together. 💕</p>
+            <div class="card" id="finalCard">
+                <p id="finalDetails"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Hearts trail animation
+        document.addEventListener('mousemove', function(e) {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = e.pageX + 'px';
+            heart.style.top = e.pageY + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 1000);
+        });
+
+        // Page navigation
+        const pages = document.querySelectorAll('.page');
+        function showPage(pageId) {
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        // Screen 1: Button logic
+        document.getElementById('yesBtn').addEventListener('click', () => showPage('page2'));
+        const noBtn = document.getElementById('noBtn');
+        noBtn.addEventListener('mouseover', () => {
+            const maxX = window.innerWidth - noBtn.offsetWidth;
+            const maxY = window.innerHeight - noBtn.offsetHeight;
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = Math.random() * maxX + 'px';
+            noBtn.style.top = Math.random() * maxY + 'px';
+        });
+
+        // Screen 2: Next to Screen 3
+        document.getElementById('nextBtn2').addEventListener('click', () => showPage('page3'));
+
+        // Screen 3: Next to Screen 4
+        document.getElementById('nextBtn3').addEventListener('click', () => {
+            const food = document.querySelector('input[name="food"]:checked')?.value;
+            const custom = document.getElementById('customFood').value;
+            if (food === 'Custom' && !custom) {
+                alert('Please enter your custom choice!');
+                return;
+            }
+            showPage('page4');
+        });
+
+        // Screen 4: Next to Screen 5
+        document.getElementById('nextBtn4').addEventListener('click', () => {
+            const day = document.getElementById('day').value;
+            const date = document.getElementById('date').value;
+            const year = document.getElementById('year').value;
+            const time = document.getElementById('time').value;
+            const food = document.querySelector('input[name="food"]:checked')?.value;
+            const custom = document.getElementById('customFood').value;
+            const finalFood = food === 'Custom' ? custom : food;
+            if (day && date && year && time && finalFood) {
+                document.getElementById('finalDetails').innerHTML = `
+                    <strong>Day:</strong> ${day}<br>
+                    <strong>Date:</strong> ${date}<br>
+                    <strong>Year:</strong> ${year}<br>
+                    <strong>Time:</strong> ${time}<br>
+                    <strong>Food:</strong> ${finalFood}
+                `;
+                showPage('page5');
+            } else {
+                alert('Please fill in all fields!');
+            }
+        });
+    </script>
+</body>
+</html>
