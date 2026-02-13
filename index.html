@@ -37,6 +37,11 @@
         }
         .page.active {
             display: block;
+            animation: slideIn 0.5s ease-in-out;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         h1 {
             font-size: 3em;
@@ -50,7 +55,10 @@
             border-radius: 10px;
             cursor: pointer;
             margin: 10px;
-            transition: background 0.3s;
+            transition: background 0.3s, transform 0.2s;
+        }
+        button:hover {
+            transform: scale(1.05);
         }
         #yesBtn {
             background: #ff69b4;
@@ -68,54 +76,92 @@
             background: #b22222;
         }
         .food-options {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
             color: #333;
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
         }
         .food-options label {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            margin: 15px 0;
             cursor: pointer;
-            padding: 10px;
-            border-radius: 10px;
-            transition: background 0.3s;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+            animation: fadeIn 0.5s ease-in-out;
         }
         .food-options label:hover {
-            background: rgba(255, 182, 193, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            background: rgba(255, 182, 193, 0.9);
         }
         .food-options input[type="radio"] {
-            margin-right: 15px;
+            margin-bottom: 10px;
         }
         .food-options img {
-            width: 100px;
-            height: 100px;
-            border-radius: 10px;
-            margin-right: 15px;
-            border: 2px solid transparent;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            border: 3px solid transparent;
             transition: border 0.3s;
+            object-fit: cover;
         }
         .food-options input[type="radio"]:checked + img {
             border-color: #ff69b4;
         }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
         .date-form {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
             color: #333;
-            max-width: 400px;
+            max-width: 500px;
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .date-form .input-card {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .date-form .input-card:hover, .date-form .input-card:focus-within {
+            transform: scale(1.02);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .date-form .input-card span {
+            font-size: 1.5em;
+            margin-right: 15px;
         }
         .date-form input {
-            display: block;
-            margin: 10px auto;
+            flex: 1;
             padding: 10px;
-            width: 80%;
+            border: 2px solid #ccc;
             border-radius: 5px;
-            border: 1px solid #ccc;
+            transition: border-color 0.3s;
+        }
+        .date-form input:focus {
+            border-color: #ff69b4;
+            outline: none;
         }
         .card {
             background: rgba(255, 255, 255, 0.9);
@@ -148,21 +194,41 @@
             <h1>WHAT WOULD YOU LIKE TO EAT?? 🍽️</h1>
             <div class="food-options">
                 <label>
+                    <input type="radio" name="food" value="Steak" required>
+                    <img src="https://via.placeholder.com/120x120?text=Steak" alt="Steak">
+                    Steak
+                </label>
+                <label>
+                    <input type="radio" name="food" value="Pizza">
+                    <img src="https://via.placeholder.com/120x120?text=Pizza" alt="Pizza">
+                    Pizza
+                </label>
+                <label>
+                    <input type="radio" name="food" value="Sushi">
+                    <img src="https://via.placeholder.com/120x120?text=Sushi" alt="Sushi">
+                    Sushi
+                </label>
+                <label>
+                    <input type="radio" name="food" value="Salad">
+                    <img src="https://via.placeholder.com/120x120?text=Salad" alt="Salad">
+                    Salad
+                </label>
+                <label>
                     <input type="radio" name="food" value="Lalapan">
-                    <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=100&h=100&fit=crop" alt="Lalapan">
+                    <img src="https://via.placeholder.com/120x120?text=Lalapan" alt="Lalapan">
                     Lalapan
                 </label>
                 <label>
                     <input type="radio" name="food" value="All You Can Eat">
-                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=100&h=100&fit=crop" alt="All You Can Eat">
+                    <img src="https://via.placeholder.com/120x120?text=All+You+Can+Eat" alt="All You Can Eat">
                     All You Can Eat
                 </label>
                 <label>
                     <input type="radio" name="food" value="Custom">
-                    <span style="width:100px; height:100px; display:inline-block; margin-right:15px; background:#f0f0f0; border-radius:10px; text-align:center; line-height:100px;">Custom</span>
-                    Isi Sendiri: <input type="text" id="customFood" placeholder="Enter your choice" style="margin-left:10px; padding:5px; border-radius:5px;">
+                    <span style="width:120px; height:120px; display:block; margin-bottom:10px; background:#f0f0f0; border-radius:50%; text-align:center; line-height:120px; border:3px solid transparent;">Custom</span>
+                    Isi Sendiri: <input type="text" id="customFood" placeholder="Enter your choice" style="margin-top:10px; padding:5px; border-radius:5px; width:100%;">
                 </label>
-                <button id="nextBtn3">Next</button>
+                <button id="nextBtn3" style="grid-column: span 3; margin-top:20px;">Next</button>
             </div>
         </div>
 
@@ -170,19 +236,23 @@
         <div id="page4" class="page">
             <h1>Let's Set the Date and Time! 📅</h1>
             <div class="date-form">
-                <label for="day">Day:</label>
-                <input type="text" id="day" placeholder="e.g., Monday" required>
-                
-                <label for="date">Date:</label>
-                <input type="date" id="date" required>
-                
-                <label for="year">Year:</label>
-                <input type="number" id="year" placeholder="e.g., 2023" required>
-                
-                <label for="time">Time:</label>
-                <input type="time" id="time" required>
-                
-                <button id="nextBtn4">Next</button>
+                <div class="input-card">
+                    <span>📅</span>
+                    <input type="text" id="day" placeholder="e.g., Monday" required>
+                </div>
+                <div class="input-card">
+                    <span>📆</span>
+                    <input type="date" id="date" required>
+                </div>
+                <div class="input-card">
+                    <span>📅</span>
+                    <input type="number" id="year" placeholder="e.g., 2023" required>
+                </div>
+                <div class="input-card">
+                    <span>⏰</span>
+                    <input type="time" id="time" required>
+                </div>
+                <button id="nextBtn4" style="align-self: center; margin-top:20px;">Next</button>
             </div>
         </div>
 
@@ -265,4 +335,3 @@
     </script>
 </body>
 </html>
-
