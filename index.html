@@ -170,9 +170,30 @@ input{
 
 </div>
 
-<audio id="bgMusic" loop>
-  <source src="https://www.fesliyanstudios.com/play-mp3/387" type="audio/mpeg">
-</audio>
+<script>
+const music=document.getElementById("bgMusic");
+
+function startMusic(){
+  music.volume = 0;
+  music.play();
+  let fade = setInterval(()=>{
+    if(music.volume < 0.5){
+      music.volume += 0.02;
+    } else {
+      clearInterval(fade);
+    }
+  }, 200);
+}
+
+function toggleMusic(){
+  if(music.paused){
+    music.play();
+  } else {
+    music.pause();
+  }
+}
+</script>
+
 
 <div class="music-control" onclick="toggleMusic()">♫</div>
 
@@ -204,3 +225,4 @@ function toggleMusic(){
 
 </body>
 </html>
+
