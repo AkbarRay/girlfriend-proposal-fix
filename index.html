@@ -86,10 +86,15 @@ button{
   color:white;
 }
 
+.yes:hover{
+  transform:scale(1.05);
+}
+
 .no{
   background:#444;
   color:white;
   position:absolute;
+  transition:transform 0.3s ease;
 }
 
 .food-btn{
@@ -125,6 +130,7 @@ input{
 }
 </style>
 </head>
+
 <body>
 
 <div class="card">
@@ -170,30 +176,10 @@ input{
 
 </div>
 
-<script>
-const music=document.getElementById("bgMusic");
-
-function startMusic(){
-  music.volume = 0;
-  music.play();
-  let fade = setInterval(()=>{
-    if(music.volume < 0.5){
-      music.volume += 0.02;
-    } else {
-      clearInterval(fade);
-    }
-  }, 200);
-}
-
-function toggleMusic(){
-  if(music.paused){
-    music.play();
-  } else {
-    music.pause();
-  }
-}
-</script>
-
+<!-- Romantic Piano Music -->
+<audio id="bgMusic" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/10/25/audio_1c2b9bb8d0.mp3?filename=romantic-piano-112194.mp3" type="audio/mpeg">
+</audio>
 
 <div class="music-control" onclick="toggleMusic()">♫</div>
 
@@ -216,13 +202,27 @@ noBtn.addEventListener("mouseover",function(){
 });
 
 const music=document.getElementById("bgMusic");
-function startMusic(){ music.play(); }
+
+function startMusic(){
+  music.volume = 0;
+  music.play();
+  let fade = setInterval(()=>{
+    if(music.volume < 0.5){
+      music.volume += 0.02;
+    } else {
+      clearInterval(fade);
+    }
+  },200);
+}
+
 function toggleMusic(){
-  if(music.paused){ music.play(); }
-  else{ music.pause(); }
+  if(music.paused){
+    music.play();
+  } else {
+    music.pause();
+  }
 }
 </script>
 
 </body>
 </html>
-
