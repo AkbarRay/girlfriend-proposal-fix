@@ -3,189 +3,203 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>First Dinner With Me?</title>
+<title>Dinner With Me</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
 
 body{
-    font-family:'Poppins',sans-serif;
-    background:linear-gradient(135deg,#f8f5f2,#efeae4);
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    overflow:hidden;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+  background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb);
+  background-size: 400% 400%;
+  animation: gradient 12s ease infinite;
+}
+
+@keyframes gradient{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+.card{
+  width:90%;
+  max-width:420px;
+  padding:40px;
+  border-radius:25px;
+  backdrop-filter: blur(15px);
+  background: rgba(255,255,255,0.25);
+  box-shadow:0 20px 40px rgba(0,0,0,0.15);
+  text-align:center;
+  position:relative;
 }
 
 .screen{
-    position:absolute;
-    width:90%;
-    max-width:700px;
-    text-align:center;
-    opacity:0;
-    transform:translateY(30px);
-    transition:all .6s ease;
+  display:none;
+  animation:fade 0.6s ease;
 }
 
 .screen.active{
-    opacity:1;
-    transform:translateY(0);
+  display:block;
 }
 
-h1{
-    font-family:'Playfair Display',serif;
-    margin-bottom:25px;
-    color:#3b3b3b;
+@keyframes fade{
+  from{opacity:0; transform:translateY(15px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+h1,h2{
+  margin-bottom:20px;
+  font-weight:500;
+  color:#fff;
+}
+
+p{
+  color:#fff;
+  opacity:0.9;
+  margin-bottom:20px;
 }
 
 button{
-    padding:12px 26px;
-    border:none;
-    border-radius:30px;
-    margin:8px;
-    font-size:15px;
-    cursor:pointer;
-    transition:.3s;
+  padding:10px 20px;
+  margin:8px;
+  border:none;
+  border-radius:30px;
+  cursor:pointer;
+  transition:0.3s;
+  font-size:14px;
+  font-weight:500;
 }
 
 .yes{
-    background:#6d8b74;
-    color:white;
-}
-.yes:hover{
-    background:#4f6f57;
+  background:#ff4d6d;
+  color:white;
 }
 
 .no{
-    background:#d8cfc4;
-    color:#333;
-    position:relative;
+  background:#444;
+  color:white;
+  position:absolute;
 }
 
-.food-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:16px;
+.food-btn{
+  display:block;
+  width:100%;
+  background:linear-gradient(45deg,#ffffff,#ffe0ec);
 }
 
-.food-card{
-    background:white;
-    border-radius:16px;
-    overflow:hidden;
-    cursor:pointer;
-    box-shadow:0 8px 20px rgba(0,0,0,.05);
-    transition:.3s;
-}
-
-.food-card:hover{
-    transform:translateY(-6px);
-}
-
-.food-card img{
-    width:100%;
-    height:120px;
-    object-fit:cover;
-}
-
-.food-card p{
-    padding:10px;
+.food-btn:hover{
+  transform:scale(1.05);
 }
 
 input{
-    padding:10px;
-    margin:8px;
-    border-radius:8px;
-    border:1px solid #ccc;
-    width:80%;
+  width:100%;
+  padding:10px;
+  margin:10px 0;
+  border-radius:12px;
+  border:none;
+}
+
+.confirm{
+  background:#6a11cb;
+  color:white;
+}
+
+.music-control{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  color:white;
+  cursor:pointer;
+  font-size:18px;
 }
 </style>
 </head>
-
 <body>
+
+<div class="card">
 
 <!-- Screen 1 -->
 <div class="screen active" id="screen1">
-<h1>First Dinner With Me?</h1>
-<button class="yes" onclick="nextScreen(2)">YES</button>
-<button class="no" id="noBtn">NO</button>
+  <h1>First Dinner With Me?</h1>
+  <button class="yes" onclick="startMusic(); nextScreen(2)">YES</button>
+  <button class="no" id="noBtn">NO</button>
 </div>
 
 <!-- Screen 2 -->
 <div class="screen" id="screen2">
-<h1>Yes… I knew you'd say yes 🤍</h1>
-<button class="yes" onclick="nextScreen(3)">Next</button>
+  <h1>I knew you'd say yes 💖</h1>
+  <button class="confirm" onclick="nextScreen(3)">Next</button>
 </div>
 
 <!-- Screen 3 -->
 <div class="screen" id="screen3">
-<h1>What Would You Like To Eat?</h1>
-<div class="food-grid">
-
-<div class="food-card" onclick="nextScreen(4)">
-<img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092" alt="">
-<p>Steak</p>
-</div>
-
-<div class="food-card" onclick="nextScreen(4)">
-<img src="https://images.unsplash.com/photo-1548365328-8b849b9b1d4f" alt="">
-<p>Pizza</p>
-</div>
-
-<div class="food-card" onclick="nextScreen(4)">
-<img src="https://images.unsplash.com/photo-1553621042-f6e147245754" alt="">
-<p>Sushi</p>
-</div>
-
-<div class="food-card" onclick="nextScreen(4)">
-<img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd" alt="">
-<p>Salad</p>
-</div>
-
-<div class="food-card" onclick="nextScreen(4)">
-<img src="https://images.unsplash.com/photo-1604908176997-43138c1b97d9" alt="">
-<p>Lalapan</p>
-</div>
-
-<div class="food-card" onclick="nextScreen(4)">
-<img src="https://images.unsplash.com/photo-1550547660-d9450f859349" alt="">
-<p>All You Can Eat</p>
-</div>
-
-</div>
+  <h2>What Would You Like To Eat?</h2>
+  <button class="food-btn" onclick="nextScreen(4)">Steak</button>
+  <button class="food-btn" onclick="nextScreen(4)">Pizza</button>
+  <button class="food-btn" onclick="nextScreen(4)">Sushi</button>
+  <button class="food-btn" onclick="nextScreen(4)">Salad</button>
+  <button class="food-btn" onclick="nextScreen(4)">Lalapan</button>
+  <button class="food-btn" onclick="nextScreen(4)">All You Can Eat</button>
+  <button class="food-btn" onclick="customFood()">Isi Sendiri</button>
 </div>
 
 <!-- Screen 4 -->
 <div class="screen" id="screen4">
-<h1>When Should We Go?</h1>
-<input type="date"><br>
-<input type="time"><br>
-<button class="yes" onclick="nextScreen(5)">Confirm</button>
+  <h2>Choose Our Date 💌</h2>
+  <input type="date">
+  <input type="time">
+  <button class="confirm" onclick="nextScreen(5)">Confirm</button>
 </div>
 
 <!-- Screen 5 -->
 <div class="screen" id="screen5">
-<h1>Thank you for saying yes.</h1>
-<p>I promise this will be our first beautiful memory together.</p>
+  <h1>Thank you for saying yes 💕</h1>
+  <p>I promise this will be our first beautiful memory together.</p>
 </div>
+
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="https://www.fesliyanstudios.com/play-mp3/387" type="audio/mpeg">
+</audio>
+
+<div class="music-control" onclick="toggleMusic()">♫</div>
 
 <script>
 function nextScreen(num){
-    document.querySelectorAll('.screen').forEach(s=>{
-        s.classList.remove('active');
-    });
-    document.getElementById('screen'+num).classList.add('active');
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen'+num).classList.add('active');
 }
 
-const noBtn=document.getElementById('noBtn');
+function customFood(){
+  let food = prompt("What would you like to eat?");
+  if(food){ nextScreen(4); }
+}
 
-noBtn.addEventListener('mouseover',()=>{
-    noBtn.style.position='absolute';
-    noBtn.style.left=Math.random()*80+'%';
-    noBtn.style.top=Math.random()*80+'%';
+const noBtn=document.getElementById("noBtn");
+noBtn.addEventListener("mouseover",function(){
+  const x=Math.random()*200-100;
+  const y=Math.random()*150-75;
+  noBtn.style.transform=`translate(${x}px,${y}px)`;
 });
+
+const music=document.getElementById("bgMusic");
+function startMusic(){ music.play(); }
+function toggleMusic(){
+  if(music.paused){ music.play(); }
+  else{ music.pause(); }
+}
 </script>
 
 </body>
