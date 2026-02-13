@@ -1,234 +1,204 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Permintaan Pacar Romantis</title>
-    <style>
-        body {
-            font-family: 'Comic Sans MS', cursive; /* Font romantis */
-            background: linear-gradient(to bottom, #ffb6c1, #ff69b4); /* Gradien pink */
-            color: #fff;
-            margin: 0;
-            padding: 0;
-            overflow: hidden; /* Untuk animasi hati */
-            text-align: center;
-        }
-        .page {
-            display: none;
-            padding: 50px;
-            min-height: 100vh;
-        }
-        .page.active {
-            display: block;
-        }
-        h1, h2 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
-        button {
-            font-family: inherit;
-            font-size: 1.2em;
-            padding: 15px 30px;
-            margin: 10px;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .yes-btn {
-            background: #ff1493; /* Pink gelap */
-            color: white;
-        }
-        .yes-btn:hover {
-            background: #ff69b4;
-        }
-        .no-btn {
-            background: #dc143c; /* Merah */
-            color: white;
-            position: absolute; /* Untuk posisi acak */
-        }
-        .no-btn:hover {
-            background: #b22222;
-        }
-        input, select {
-            font-family: inherit;
-            font-size: 1.2em;
-            padding: 10px;
-            margin: 10px;
-            border-radius: 10px;
-            border: none;
-        }
-        .food-options {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin: 20px 0;
-        }
-        .food-option {
-            border: 2px solid #fff;
-            border-radius: 10px;
-            padding: 10px;
-            cursor: pointer;
-            transition: border-color 0.3s;
-            min-width: 120px;
-        }
-        .food-option.selected {
-            border-color: #ff1493;
-        }
-        .food-option img {
-            width: 80px;
-            height: 80px;
-        }
-        .custom-food {
-            display: none;
-        }
-        .heart {
-            position: absolute;
-            font-size: 2em;
-            color: #ff1493;
-            pointer-events: none;
-            animation: fadeOut 2s forwards;
-        }
-        @keyframes fadeOut {
-            to { opacity: 0; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dinner Invitation</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #f5f3f0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #2c2c2c;
+    overflow: hidden;
+}
+
+.container {
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    position: relative;
+}
+
+.screen {
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+    pointer-events: none;
+}
+
+.screen.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+h1, h2 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 22px;
+    margin: 8px;
+    border-radius: 30px;
+    border: 1px solid #2c2c2c;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 400;
+}
+
+button:hover {
+    background: #2c2c2c;
+    color: white;
+}
+
+.food-list button {
+    display: block;
+    width: 100%;
+}
+
+input {
+    padding: 10px;
+    margin: 10px 0;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.no {
+    position: absolute;
+}
+
+.fade-text {
+    opacity: 0.7;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.music-control {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 12px;
+    opacity: 0.6;
+    cursor: pointer;
+}
+</style>
 </head>
 <body>
-    <div id="page1" class="page active">
-        <h1>First Dinner With Me? 💖</h1>
-        <button class="yes-btn" onclick="nextPage(2)">YES</button>
-        <button class="no-btn" id="noBtn" onmouseover="moveNoBtn()">NO</button>
+
+<div class="container">
+
+<!-- Screen 1 -->
+<div class="screen active" id="screen1">
+    <h1>First Dinner With Me?</h1>
+    <button onclick="startMusic(); nextScreen(2)">Yes</button>
+    <button class="no" id="noBtn">No</button>
+</div>
+
+<!-- Screen 2 -->
+<div class="screen" id="screen2">
+    <h1>Yes. I knew you'd say yes.</h1>
+    <p class="fade-text">I’ll make it special.</p>
+    <button onclick="nextScreen(3)">Continue</button>
+</div>
+
+<!-- Screen 3 -->
+<div class="screen" id="screen3">
+    <h2>What would you like to eat?</h2>
+    <div class="food-list">
+        <button onclick="chooseFood('Steak')">Steak</button>
+        <button onclick="chooseFood('Pizza')">Pizza</button>
+        <button onclick="chooseFood('Sushi')">Sushi</button>
+        <button onclick="chooseFood('Salad')">Salad</button>
+        <button onclick="chooseFood('Lalapan')">Lalapan</button>
+        <button onclick="chooseFood('All You Can Eat')">All You Can Eat</button>
+        <button onclick="customFood()">Isi Sendiri</button>
     </div>
+</div>
 
-    <div id="page2" class="page">
-        <h2>YES, I knew you’d say yes! 🌹</h2>
-        <button class="yes-btn" onclick="nextPage(3)">Next</button>
-    </div>
+<!-- Screen 4 -->
+<div class="screen" id="screen4">
+    <h2>Choose the date</h2>
+    <input type="date" id="date">
+    <input type="time" id="time">
+    <button onclick="nextScreen(5)">Confirm</button>
+</div>
 
-    <div id="page3" class="page">
-        <h2>WHAT WOULD YOU LIKE TO EAT?? 🍽️</h2>
-        <div class="food-options">
-            <div class="food-option" onclick="selectFood(this, 'Steak')">
-                <img src="https://via.placeholder.com/80?text=Steak" alt="Steak">
-                <p>Steak</p>
-            </div>
-            <div class="food-option" onclick="selectFood(this, 'Pizza')">
-                <img src="https://via.placeholder.com/80?text=Pizza" alt="Pizza">
-                <p>Pizza</p>
-            </div>
-            <div class="food-option" onclick="selectFood(this, 'Sushi')">
-                <img src="https://via.placeholder.com/80?text=Sushi" alt="Sushi">
-                <p>Sushi</p>
-            </div>
-            <div class="food-option" onclick="selectFood(this, 'Salad')">
-                <img src="https://via.placeholder.com/80?text=Salad" alt="Salad">
-                <p>Salad</p>
-            </div>
-            <div class="food-option" onclick="selectFood(this, 'Lalapan')">
-                <img src="https://via.placeholder.com/80?text=Lalapan" alt="Lalapan">
-                <p>Lalapan</p>
-            </div>
-            <div class="food-option" onclick="selectFood(this, 'All u can eat')">
-                <img src="https://via.placeholder.com/80?text=All+U+Can+Eat" alt="All u can eat">
-                <p>All u can eat</p>
-            </div>
-            <div class="food-option" onclick="selectFood(this, 'custom')">
-                <p>Isi sendiri</p>
-                <input type="text" id="customFood" placeholder="Masukkan makanan" class="custom-food">
-            </div>
-        </div>
-        <button class="yes-btn" onclick="nextPage(4)">Next</button>
-    </div>
+<!-- Screen 5 -->
+<div class="screen" id="screen5">
+    <h1>Thank you for saying yes.</h1>
+    <p class="fade-text">
+        I promise this will be our first beautiful memory together.
+    </p>
+</div>
 
-    <div id="page4" class="page">
-        <h2>Jadwalkan Kencan Kita! 📅</h2>
-        <p>Pilih hari:</p>
-        <select id="day">
-            <option value="">Pilih Hari</option>
-            <option value="Senin">Senin</option>
-            <option value="Selasa">Selasa</option>
-            <option value="Rabu">Rabu</option>
-            <option value="Kamis">Kamis</option>
-            <option value="Jumat">Jumat</option>
-            <option value="Sabtu">Sabtu</option>
-            <option value="Minggu">Minggu</option>
-        </select>
-        <p>Tanggal:</p>
-        <input type="date" id="date">
-        <p>Tahun:</p>
-        <input type="number" id="year" placeholder="Tahun" min="2023" max="2030">
-        <p>Jam:</p>
-        <input type="time" id="time">
-        <button class="yes-btn" onclick="nextPage(5)">Next</button>
-    </div>
+</div>
 
-    <div id="page5" class="page">
-        <h2>Thank you for saying yes. 💕</h2>
-        <p>I promise this will be our first beautiful memory together.</p>
-        <button class="yes-btn" onclick="reset()">Mulai Lagi</button>
-    </div>
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+    <source src="https://www.fesliyanstudios.com/play-mp3/387" type="audio/mpeg">
+</audio>
 
-    <script>
-        let selectedFood = '';
-        let hearts = [];
+<div class="music-control" onclick="toggleMusic()">
+    ♫ music
+</div>
 
-        // Animasi jejak hati mengikuti kursor
-        document.addEventListener('mousemove', function(e) {
-            const heart = document.createElement('div');
-            heart.className = 'heart';
-            heart.textContent = '❤️';
-            heart.style.left = e.pageX + 'px';
-            heart.style.top = e.pageY + 'px';
-            document.body.appendChild(heart);
-            hearts.push(heart);
-            setTimeout(() => {
-                heart.remove();
-                hearts.shift();
-            }, 2000);
-        });
+<script>
+function nextScreen(num) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen' + num).classList.add('active');
+}
 
-        // Fungsi untuk tombol "NO" yang menghilang dan muncul acak
-        function moveNoBtn() {
-            const btn = document.getElementById('noBtn');
-            const x = Math.random() * (window.innerWidth - 200);
-            const y = Math.random() * (window.innerHeight - 100);
-            btn.style.left = x + 'px';
-            btn.style.top = y + 'px';
-        }
+function chooseFood(food) {
+    nextScreen(4);
+}
 
-        // Navigasi halaman
-        function nextPage(pageNum) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById('page' + pageNum).classList.add('active');
-        }
+function customFood() {
+    let food = prompt("What would you like to eat?");
+    if(food) nextScreen(4);
+}
 
-        // Pilih makanan di halaman 3
-        function selectFood(el, food) {
-            document.querySelectorAll('.food-option').forEach(o => o.classList.remove('selected'));
-            el.classList.add('selected');
-            selectedFood = food;
-            if (food === 'custom') {
-                document.getElementById('customFood').style.display = 'block';
-                selectedFood = document.getElementById('customFood').value || 'Isi sendiri';
-            } else {
-                document.getElementById('customFood').style.display = 'none';
-            }
-        }
+// Moving NO button
+const noBtn = document.getElementById("noBtn");
+noBtn.addEventListener("mouseover", function() {
+    const x = Math.random() * 250 - 120;
+    const y = Math.random() * 200 - 100;
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+});
 
-        // Reset ke halaman 1
-        function reset() {
-            nextPage(1);
-            selectedFood = '';
-            document.querySelectorAll('.food-option').forEach(o => o.classList.remove('selected'));
-            document.getElementById('customFood').value = '';
-            document.getElementById('day').value = '';
-            document.getElementById('date').value = '';
-            document.getElementById('year').value = '';
-            document.getElementById('time').value = '';
-        }
-    </script>
+// Music control
+const music = document.getElementById("bgMusic");
+
+function startMusic() {
+    music.play();
+}
+
+function toggleMusic() {
+    if(music.paused){
+        music.play();
+    } else {
+        music.pause();
+    }
+}
+</script>
+
 </body>
 </html>
