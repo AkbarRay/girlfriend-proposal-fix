@@ -37,7 +37,7 @@
         }
         .page.active {
             display: block;
-            animation: slideIn 0.5s ease-in-out;
+            animation: slideIn 0.3s ease-in-out;
         }
         @keyframes slideIn {
             from { opacity: 0; transform: translateY(20px); }
@@ -81,10 +81,10 @@
             padding: 30px;
             border-radius: 20px;
             color: #333;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 20px;
         }
         .food-options label {
@@ -97,7 +97,7 @@
             background: rgba(255, 255, 255, 0.8);
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
-            animation: fadeIn 0.5s ease-in-out;
+            animation: fadeIn 0.4s ease-in-out;
         }
         .food-options label:hover {
             transform: translateY(-5px);
@@ -108,16 +108,23 @@
             margin-bottom: 10px;
         }
         .food-options img {
-            width: 120px;
-            height: 120px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             margin-bottom: 10px;
-            border: 3px solid transparent;
-            transition: border 0.3s;
+            border: 4px solid transparent;
+            transition: border 0.3s, transform 0.2s;
             object-fit: cover;
         }
         .food-options input[type="radio"]:checked + img {
             border-color: #ff69b4;
+            transform: scale(1.05);
+        }
+        .food-options .food-desc {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+            text-align: center;
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.9); }
@@ -195,38 +202,45 @@
             <div class="food-options">
                 <label>
                     <input type="radio" name="food" value="Steak" required>
-                    <img src="https://via.placeholder.com/120x120?text=Steak" alt="Steak">
+                    <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=150&h=150&fit=crop&crop=center" alt="Steak">
                     Steak
+                    <div class="food-desc">Juicy grilled steak with herbs</div>
                 </label>
                 <label>
                     <input type="radio" name="food" value="Pizza">
-                    <img src="https://via.placeholder.com/120x120?text=Pizza" alt="Pizza">
+                    <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=150&h=150&fit=crop&crop=center" alt="Pizza">
                     Pizza
+                    <div class="food-desc">Cheesy Italian pizza with toppings</div>
                 </label>
                 <label>
                     <input type="radio" name="food" value="Sushi">
-                    <img src="https://via.placeholder.com/120x120?text=Sushi" alt="Sushi">
+                    <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=150&h=150&fit=crop&crop=center" alt="Sushi">
                     Sushi
+                    <div class="food-desc">Fresh Japanese sushi rolls</div>
                 </label>
                 <label>
                     <input type="radio" name="food" value="Salad">
-                    <img src="https://via.placeholder.com/120x120?text=Salad" alt="Salad">
+                    <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=150&h=150&fit=crop&crop=center" alt="Salad">
                     Salad
+                    <div class="food-desc">Healthy green salad with dressing</div>
                 </label>
                 <label>
                     <input type="radio" name="food" value="Lalapan">
-                    <img src="https://via.placeholder.com/120x120?text=Lalapan" alt="Lalapan">
+                    <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=150&h=150&fit=crop&crop=center" alt="Lalapan">
                     Lalapan
+                    <div class="food-desc">Traditional Indonesian vegetable sides</div>
                 </label>
                 <label>
                     <input type="radio" name="food" value="All You Can Eat">
-                    <img src="https://via.placeholder.com/120x120?text=All+You+Can+Eat" alt="All You Can Eat">
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=150&h=150&fit=crop&crop=center" alt="All You Can Eat">
                     All You Can Eat
+                    <div class="food-desc">Buffet with endless variety</div>
                 </label>
                 <label>
                     <input type="radio" name="food" value="Custom">
-                    <span style="width:120px; height:120px; display:block; margin-bottom:10px; background:#f0f0f0; border-radius:50%; text-align:center; line-height:120px; border:3px solid transparent;">Custom</span>
-                    Isi Sendiri: <input type="text" id="customFood" placeholder="Enter your choice" style="margin-top:10px; padding:5px; border-radius:5px; width:100%;">
+                    <span style="width:150px; height:150px; display:block; margin-bottom:10px; background:#f0f0f0; border-radius:50%; text-align:center; line-height:150px; border:4px solid transparent; font-size:0.8em;">Your Choice</span>
+                    Isi Sendiri: <input type="text" id="customFood" placeholder="Type your favorite food here" style="margin-top:10px; padding:8px; border-radius:5px; width:100%; border:2px solid #ccc;">
+                    <div class="food-desc">Custom dish for something special</div>
                 </label>
                 <button id="nextBtn3" style="grid-column: span 3; margin-top:20px;">Next</button>
             </div>
