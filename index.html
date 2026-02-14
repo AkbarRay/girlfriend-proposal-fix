@@ -151,27 +151,30 @@ input{
 <!-- Screen 3 -->
 <div class="screen" id="screen3">
   <h2>What Would You Like To Eat?</h2>
-  <button class="food-btn" onclick="nextScreen(4)">Steak</button>
-  <button class="food-btn" onclick="nextScreen(4)">Pizza</button>
-  <button class="food-btn" onclick="nextScreen(4)">Sushi</button>
-  <button class="food-btn" onclick="nextScreen(4)">Salad</button>
-  <button class="food-btn" onclick="nextScreen(4)">Lalapan</button>
-  <button class="food-btn" onclick="nextScreen(4)">All You Can Eat</button>
+  <button class="food-btn" onclick="selectFood('Steak'); nextScreen(4)">Steak</button>
+  <button class="food-btn" onclick="selectFood('Pizza'); nextScreen(4)">Pizza</button>
+  <button class="food-btn" onclick="selectFood('Sushi'); nextScreen(4)">Sushi</button>
+  <button class="food-btn" onclick="selectFood('Salad'); nextScreen(4)">Salad</button>
+  <button class="food-btn" onclick="selectFood('Lalapan'); nextScreen(4)">Lalapan</button>
+  <button class="food-btn" onclick="selectFood('All You Can Eat'); nextScreen(4)">All You Can Eat</button>
   <button class="food-btn" onclick="customFood()">Isi Sendiri</button>
 </div>
 
 <!-- Screen 4 -->
 <div class="screen" id="screen4">
   <h2>Choose Our Date 💌</h2>
-  <input type="date">
-  <input type="time">
-  <button class="confirm" onclick="nextScreen(5)">Confirm</button>
+  <input type="date" id="dateInput">
+  <input type="time" id="timeInput">
+  <button class="confirm" onclick="confirmDateTime(); nextScreen(5)">Confirm</button>
 </div>
 
 <!-- Screen 5 -->
 <div class="screen" id="screen5">
   <h1>Thank you for saying yes</h1>
   <p>I promise this will be our first beautiful memory together.</p>
+  <div id="resultDisplay">
+    <!-- Hasil isian akan ditampilkan di sini -->
+  </div>
 </div>
 
 </div>
@@ -184,14 +187,43 @@ input{
 <div class="music-control" onclick="toggleMusic()">♫</div>
 
 <script>
+// Variabel untuk menyimpan data
+let selectedFood = '';
+let selectedDate = '';
+let selectedTime = '';
+
 function nextScreen(num){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('screen'+num).classList.add('active');
 }
 
+function selectFood(food){
+  selectedFood = food;
+}
+
 function customFood(){
   let food = prompt("What would you like to eat?");
-  if(food){ nextScreen(4); }
+  if(food){
+    selectedFood = food;
+    nextScreen(4);
+  }
+}
+
+function confirmDateTime(){
+  const date = document.getElementById('dateInput').value;
+  const time = document.getElementById('timeInput').value;
+  if(!date || !time){
+    alert('Please select both date and time!');
+    return;
+  }
+  selectedDate = date;
+  selectedTime = time;
+  // Tampilkan hasil di screen5
+  document.getElementById('resultDisplay').innerHTML = `
+    <p><strong>Food:</strong> ${selectedFood}</p>
+    <p><strong>Date:</strong> ${selectedDate}</p>
+    <p><strong>Time:</strong> ${selectedTime}</p>
+  `;
 }
 
 const noBtn=document.getElementById("noBtn");
@@ -226,5 +258,3 @@ function toggleMusic(){
 
 </body>
 </html>
-
-
